@@ -1,4 +1,6 @@
 import logging
+import os
+import sys
 
 from optparse import OptionParser
 
@@ -98,4 +100,9 @@ def pyres_worker():
 
     queues = args[0].split(',')
     server = '%s:%s' % (options.host,options.port)
+
+    #add current directory to sys.path to load modules
+    cwd = os.getcwd()
+    sys.path.append(cwd)
+
     Worker.run(queues, server, interval)
